@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMatch - Giriş Yap / Kayıt Ol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            min-height: 600px;
+        }
+
+        .left-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .features li::before {
+            content: '✓';
+            margin-right: 10px;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .right-panel {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e1e5e9;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .form-toggle {
+            display: none;
+        }
+
+        .login-form, .register-form {
+            display: none;
+        }
+
+        .form-toggle:checked ~ .login-form {
+            display: block;
+        }
+
+        .form-toggle:checked ~ .register-form {
+            display: block;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .user-type-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .left-panel {
+                padding: 30px 20px;
+                min-height: 300px;
+            }
+
+            .right-panel {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="left-content">
+                <div class="logo">🎓 EduMatch</div>
+                <div class="tagline">Eğitimde Fırsat Eşitliği</div>
+                <ul class="features">
+                    <li>Öğretmenler için dijital profil</li>
+                    <li>Eğitim kurumları için doğru eşleştirme</li>
+                    <li>Gerçek zamanlı mesajlaşma</li>
+                    <li>Güvenli ve doğrulanmış hesaplar</li>
+                    <li>Premium vitrin özellikleri</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-container">
+                <div class="toggle-buttons">
+                    <button class="toggle-btn active" onclick="showLogin()">Giriş Yap</button>
+                    <button class="toggle-btn" onclick="showRegister()">Kayıt Ol</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm" class="login-form">
+                    <div class="form-header">
+                        <h2 class="form-title">Hoş Geldiniz</h2>
+                        <p class="form-subtitle">Hesabınıza giriş yapın</p>
+                    </div>
+
+                    <form id="loginFormElement" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">E-posta</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                            <div class="error-message" id="loginEmailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Şifre</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                            <div class="error-message" id="loginPasswordError"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                    </form>
+
+                    <div class="form-footer">
+                        <a href="#" onclick="showForgotPassword()">Şifremi Unuttum</a>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="register-form" style="display: none;">
+                    <div class="form-header">
+                        <h2 class="form-title">Hesap Oluştur</h2>
+                        <p class="form-subtitle">EduMatch'e katılın</p>
+                    </div>
+
+                    <div class="user-type-selector">
+                        <button type="button" class="user-type-btn active" onclick="selectUserType('teacher')">Öğretmen</button>
+                        <button type="button" class="user-type-btn" onclick="selectUserType('institution')">Kurum</button>
+                        <button type="button" class="user-type-btn" onclick="selectUserType('student')">Öğrenci/Aile</button>
+                    </div>
+
+                    <form id="registerFormElement" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerName">Ad Soyad</label>
+                            <input type="text" id="registerName" name="name" required>
+                            <div class="error-message" id="registerNameError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">E-posta</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                            <div class="error-message" id="registerEmailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPhone">Telefon</label>
+                            <input type="tel" id="registerPhone" name="phone" required>
+                            <div class="error-message" id="registerPhoneError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Şifre</label>
+                            <input type="password" id="registerPassword" name="password" required>
+                            <div class="error-message" id="registerPasswordError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPasswordConfirm">Şifre Tekrar</label>
+                            <input type="password" id="registerPasswordConfirm" name="passwordConfirm" required>
+                            <div class="error-message" id="registerPasswordConfirmError"></div>
+                        </div>
+
+                        <div class="form-group" id="teacherFields" style="display: none;">
+                            <label for="registerSubject">Branş</label>
+                            <select id="registerSubject" name="subject">
+                                <option value="">Branş seçin</option>
+                                <option value="matematik">Matematik</option>
+                                <option value="turkce">Türkçe</option>
+                                <option value="fen">Fen Bilimleri</option>
+                                <option value="sosyal">Sosyal Bilgiler</option>
+                                <option value="ingilizce">İngilizce</option>
+                                <option value="almanca">Almanca</option>
+                                <option value="fransizca">Fransızca</option>
+                                <option value="fizik">Fizik</option>
+                                <option value="kimya">Kimya</option>
+                                <option value="biyoloji">Biyoloji</option>
+                                <option value="tarih">Tarih</option>
+                                <option value="cografya">Coğrafya</option>
+                                <option value="felsefe">Felsefe</option>
+                                <option value="psikoloji">Psikoloji</option>
+                                <option value="muzik">Müzik</option>
+                                <option value="resim">Resim</option>
+                                <option value="beden">Beden Eğitimi</option>
+                                <option value="bilgisayar">Bilgisayar</option>
+                                <option value="diger">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="institutionFields" style="display: none;">
+                            <label for="registerInstitutionType">Kurum Türü</label>
+                            <select id="registerInstitutionType" name="institutionType">
+                                <option value="">Kurum türü seçin</option>
+                                <option value="okul">Özel Okul</option>
+                                <option value="kurs">Kurs Merkezi</option>
+                                <option value="etut">Etüt Merkezi</option>
+                                <option value="kolej">Kolej</option>
+                                <option value="universite">Üniversite</option>
+                                <option value="diger">Diğer</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                    </form>
+
+                    <div class="form-footer">
+                        <p>Zaten hesabınız var mı? <a href="#" onclick="showLogin()">Giriş yapın</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAeD4fnU2uOi9UJvTy6qesHVVmLD6rQJdM",
+            authDomain: "edumatch-e6044.firebaseapp.com",
+            projectId: "edumatch-e6044",
+            storageBucket: "edumatch-e6044.firebasestorage.app",
+            messagingSenderId: "950965165679",
+            appId: "1:950965165679:web:26714ba23356c52389379a",
+            measurementId: "G-ZGXEQLD649"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        const auth = firebase.auth();
+    </script>
+    <script>
+        let selectedUserType = 'teacher';
+
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.toggle-btn').classList.add('active');
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+        }
+
+        function selectUserType(type) {
+            selectedUserType = type;
+            
+            // Update button states
+            document.querySelectorAll('.user-type-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide relevant fields
+            document.getElementById('teacherFields').style.display = 'none';
+            document.getElementById('institutionFields').style.display = 'none';
+            
+            if (type === 'teacher') {
+                document.getElementById('teacherFields').style.display = 'block';
+            } else if (type === 'institution') {
+                document.getElementById('institutionFields').style.display = 'block';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            clearErrors();
+            if (!email || !password) {
+                showError('loginEmail', 'Lütfen tüm alanları doldurun');
+                return;
+            }
+            // Firebase ile giriş
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    showSuccess('loginEmail', 'Giriş başarılı! Yönlendiriliyorsunuz...');
+                    setTimeout(() => {
+                        alert('EduMatch paneline hoş geldiniz!');
+                    }, 1000);
+                })
+                .catch((error) => {
+                    showError('loginEmail', error.message);
+                });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            clearErrors();
+            if (!data.name || !data.email || !data.phone || !data.password || !data.passwordConfirm) {
+                showError('registerName', 'Lütfen tüm alanları doldurun');
+                return;
+            }
+            if (data.password !== data.passwordConfirm) {
+                showError('registerPasswordConfirm', 'Şifreler eşleşmiyor');
+                return;
+            }
+            if (data.password.length < 6) {
+                showError('registerPassword', 'Şifre en az 6 karakter olmalıdır');
+                return;
+            }
+            data.userType = selectedUserType;
+            // Firebase ile kayıt
+            auth.createUserWithEmailAndPassword(data.email, data.password)
+                .then((userCredential) => {
+                    // Profil güncelleme
+                    return userCredential.user.updateProfile({
+                        displayName: data.name
+                    });
+                })
+                .then(() => {
+                    showSuccess('registerName', 'Kayıt başarılı! Giriş yapabilirsiniz.');
+                    setTimeout(() => {
+                        showLogin();
+                    }, 2000);
+                })
+                .catch((error) => {
+                    showError('registerName', error.message);
+                });
+        }
+
+        function showForgotPassword() {
+            const email = prompt('E-posta adresinizi girin:');
+            if (email) {
+                alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.');
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+            document.querySelectorAll('.success-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+        }
+
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function showSuccess(fieldId, message) {
+            const successElement = document.getElementById(fieldId + 'Success');
+            if (successElement) {
+                successElement.textContent = message;
+                successElement.style.display = 'block';
+            } else {
+                // Create success message if it doesn't exist
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    const successDiv = document.createElement('div');
+                    successDiv.className = 'success-message';
+                    successDiv.textContent = message;
+                    successDiv.style.display = 'block';
+                    field.parentNode.appendChild(successDiv);
+                }
+            }
+        }
+
+        // Initialize the form
+        document.addEventListener('DOMContentLoaded', function() {
+            showLogin();
+        });
+    </script>
+</body>
+</html>
