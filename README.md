@@ -1,1 +1,1 @@
-krallar
+krallar selam gernas duyuuyonmu
