@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Edu Match | Öğretmen Ara</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #e6e6fa;
+    }
+
+    header {
+      background-color: #6a5acd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #000;
+    }
+
+    .kart {
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 5px solid #4169e1;
+    }
+
+    .foto {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin-right: 20px;
+      flex-shrink: 0;
+      background-image: url('https://via.placeholder.com/100');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bilgi {
+      color: #000;
+    }
+
+    .isim {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .detay {
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Edu Match</h1>
+    <p>En uygun öğretmeni hemen bul!</p>
+  </header>
+
+  <input type="text" id="aramaKutusu" placeholder="İsim, şehir veya branş yaz..." onkeyup="filtrele()">
+
+  <div id="ogretmenler">
+    <div class="kart">
+      <div class="foto"></div>
+      <div class="bilgi">
+        <div class="isim"><a href="ayşe yılmaz.html">Ayşe YILMAZ</a></div>
+        <div class="detay">İstanbul - Matematik</div>
+      </div>
+    </div>
+    <div class="kart">
+      <div class="foto"></div>
+      <div class="bilgi">
+        <div class="isim">Mehmet Demir</div>
+        <div class="detay">Ankara - Fizik</div>
+      </div>
+    </div>
+    <div class="kart">
+      <div class="foto"></div>
+      <div class="bilgi">
+        <div class="isim">Fatma Kaya</div>
+        <div class="detay">İzmir - İngilizce</div>
+      </div>
+    </div>
+    <div class="kart">
+      <div class="foto"></div>
+      <div class="bilgi">
+        <div class="isim">Ahmet Çelik</div>
+        <div class="detay">Antalya - Kimya</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filtrele() {
+      const input = document.getElementById("aramaKutusu").value.toLowerCase();
+      const kartlar = document.querySelectorAll("#ogretmenler .kart");
+
+      kartlar.forEach((kart) => {
+        const icerik = kart.textContent.toLowerCase();
+        kart.style.display = icerik.includes(input) ? "flex" : "none";
+      });
+    }
+  </script>
+
+</body>
+</html>
